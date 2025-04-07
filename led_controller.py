@@ -29,11 +29,21 @@ class LEDController:
 
     def start_sequence(self):
         """Performs a countdown sequence in red, green, blue order."""
+        # Light up LEDs sequentially and keep them on
         for color in ["r", "g", "b"]:
             GPIO.output(self.led_pins[color], GPIO.HIGH)
             time.sleep(0.5)
-            GPIO.output(self.led_pins[color], GPIO.LOW)
-            time.sleep(0.2)
+    
+        # Brief flash at the end
+        time.sleep(0.5)
+        for pin in self.led_pins.values():
+            GPIO.output(pin, GPIO.LOW)
+        time.sleep(0.3)
+        for pin in self.led_pins.values():
+            GPIO.output(pin, GPIO.HIGH)
+        time.sleep(0.3)
+        for pin in self.led_pins.values():
+            GPIO.output(pin, GPIO.LOW)
 
     def game_over_flash(self):
         """Flashes all LEDs simultaneously for a 'Game Over' effect."""
