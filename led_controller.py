@@ -37,6 +37,7 @@ class LEDController:
         time.sleep(0.3)
         for pin in self.led_pins.values():
             GPIO.output(pin, GPIO.LOW)
+        time.sleep(1.0)
 
     def game_over_flash(self):
         """Flashes all LEDs simultaneously for a 'Game Over' effect."""
