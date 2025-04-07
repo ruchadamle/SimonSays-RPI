@@ -6,11 +6,13 @@ class ButtonController:
         """
         Initializes the ButtonController with a dictionary of button pins.
         
-        Parameters:
+        Args:
         button_pins (dict): A dictionary mapping button color keys (r, g, b) to GPIO pin numbers.
         """
         self.button_pins = button_pins
         GPIO.setmode(GPIO.BCM)
+        # Configures the pins to take input
+        # Enables internal pull-up resistors to avoid situations where button floats between HIGH and LOW
         GPIO.setup(list(self.button_pins.values()), GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     def get_button_press(self):
