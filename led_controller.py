@@ -27,6 +27,17 @@ class LEDController:
         GPIO.output(self.led_pins[color], GPIO.LOW)
         time.sleep(0.3)
 
+    def game_over_flash(self):
+        """Flashes all LEDs simultaneously for a 'Game Over' effect."""
+        # Flash the LEDS 3 times
+        for i in range(3):
+            for pin in self.led_pins.values():
+                GPIO.output(pin, GPIO.HIGH)
+            time.sleep(0.3)
+            for pin in self.led_pins.values():
+                GPIO.output(pin, GPIO.LOW)
+            time.sleep(0.3)
+
     def cleanup(self):
         """Cleans up the GPIO pins."""
         GPIO.cleanup()
