@@ -34,13 +34,6 @@ class LEDController:
             GPIO.output(self.led_pins[color], GPIO.HIGH)
             time.sleep(0.5)
     
-        # Brief flash at the end
-        time.sleep(0.5)
-        for pin in self.led_pins.values():
-            GPIO.output(pin, GPIO.LOW)
-        time.sleep(0.3)
-        for pin in self.led_pins.values():
-            GPIO.output(pin, GPIO.HIGH)
         time.sleep(0.3)
         for pin in self.led_pins.values():
             GPIO.output(pin, GPIO.LOW)
