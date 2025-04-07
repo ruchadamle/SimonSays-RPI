@@ -6,13 +6,15 @@ class LEDController:
         """
         Initializes the LEDController with a dictionary of LED pins.
         
-        Parameters:
+        Args:
         pins (dict): A dictionary mapping LED color keys (r, g, b) to GPIO pin numbers.
         """
         self.led_pins = pins
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(list(self.led_pins.values()), GPIO.OUT)
+        # Default game difficulty is medium
         self.difficulty = "medium"
+        # Light flashes for a longer duration on easy mode, shorter duration on hard
         self.duration_map = {"easy": 1.0, "medium": 0.5, "hard": 0.25}
 
     def set_difficulty(self, difficulty):
@@ -20,7 +22,7 @@ class LEDController:
         self.difficulty = difficulty.lower()
         
     def flash_led(self, color):
-        """Flashes the LED of the specified color for the set duration."""
+        """Flashes the LED for the set duration."""
         duration = self.duration_map.get(self.difficulty, 0.5)
         GPIO.output(self.led_pins[color], GPIO.HIGH)
         time.sleep(duration)
@@ -33,10 +35,13 @@ class LEDController:
         for color in ["r", "g", "b"]:
             GPIO.output(self.led_pins[color], GPIO.HIGH)
             time.sleep(0.5)
-    
         time.sleep(0.3)
+        
+        # Turn all the LEDs off
         for pin in self.led_pins.values():
             GPIO.output(pin, GPIO.LOW)
+        # At the end, turn off all LEDs to avoid confusion between starting sequence
+        # and the start of the game
         time.sleep(1.0)
 
     def game_over_flash(self):
