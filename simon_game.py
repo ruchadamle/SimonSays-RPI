@@ -35,6 +35,7 @@ class SimonGame:
             print("Invalid difficulty! Please choose easy, medium, or hard.")
 
         print(f"\nStarting game on {difficulty} difficulty...\n")
+        self.led_controller.start_sequence()
 
         try:
             while True:
@@ -45,6 +46,7 @@ class SimonGame:
                     self.led_controller.flash_led(color)
                 
                 if not self.get_user_input():
+                    self.led_controller.game_over_flash()
                     break
                 
                 self.score += 1
